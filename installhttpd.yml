@@ -1,0 +1,23 @@
+---
+- name: Install Apache HTTP server on Ubuntu
+  hosts:  192.168.88.22    # Replace with the target host where you want to install httpd
+  become: yes  # Run tasks with sudo
+
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Apache HTTP server (httpd)
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Start Apache service and enable it on boot
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+      when: ansible_os_family == 'Debian'
