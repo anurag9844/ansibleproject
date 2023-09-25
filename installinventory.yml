@@ -1,0 +1,11 @@
+---
+- name: Create a folder on the desktop
+  hosts:  all
+  become: yes  
+
+  tasks:
+    - name: Create the folder on the desktop
+      file:
+        path: /home/anurag/Desktop/my_folder2
+        state: directory
+      become_user: anurag  
